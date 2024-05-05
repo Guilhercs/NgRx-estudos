@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { register } from '../../store/actions';
+import { authActions } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { RouterLink } from '@angular/router';
-import { selectIsSubmitting } from '../../store/selectors';
+import { selectIsSubmitting } from '../../store/reducers';
 import { AuthStateInterface } from '../../types/authState.interface';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent {
   #fb = inject(FormBuilder);
-  #store = inject(Store<{ auth: AuthStateInterface }>);
+  #store = inject(Store);
 
   form = this.#fb.nonNullable.group({
     username: ['', Validators.required],
@@ -32,6 +33,6 @@ export class RegisterComponent {
     const request: RegisterRequestInterface = {
       user: this.form.getRawValue(),
     };
-    this.#store.dispatch(register({ request }));
+    this.#store.dispatch(authActions.register({ request }));
   }
 }
