@@ -5,9 +5,7 @@ import { authActions } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { RouterLink } from '@angular/router';
 import { selectIsSubmitting } from '../../store/reducers';
-import { AuthStateInterface } from '../../types/authState.interface';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
